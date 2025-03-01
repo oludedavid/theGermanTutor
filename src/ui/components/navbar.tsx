@@ -90,9 +90,10 @@ export default function Navbar() {
               </Button>
             </SheetDescription>
             <SheetFooter>
-              <div className="flex justify-between items-center">
-                <small>thegermantutor </small>
-                <small>© 2021</small>
+              <div className="flex items-center">
+                <small className="pb-10 pt-2">
+                  Copyright © 2025 thegermantutor. All Rights Reserved.
+                </small>
               </div>
             </SheetFooter>
           </SheetContent>
