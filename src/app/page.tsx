@@ -1,3 +1,11 @@
+import Hero from "@/ui/components/hero";
+import Competence from "@/ui/components/competence";
+
 export default function Home() {
-  return <div className="">I am home</div>;
+  return (
+    <section className="grid grid-cols-1">
+      <Hero />
+      <Competence />
+    </section>
+  );
 }
