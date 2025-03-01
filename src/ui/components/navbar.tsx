@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -66,7 +65,6 @@ export default function Navbar() {
             </SheetHeader>
             <SheetTitle className="text-center">
               <figure className="flex justify-center items-center">
-                <Image src="/logo.jpg" alt="logo" width={70} height={70} />
                 <Logo width={70} height={70} />
               </figure>
             </SheetTitle>
