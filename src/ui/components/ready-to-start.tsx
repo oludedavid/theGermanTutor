@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 export default function ReadyToStart() {
   return (
@@ -15,8 +16,9 @@ export default function ReadyToStart() {
         variant={`default`}
         className="bg-[#F2EFDD] text-black hover:bg-[#e5e2d0] transition-colors mt-2 md:mt-3"
       >
-        <Link className="uppercase text-sm md:text-base" href="/courses">
-          Enroll Now
+        <Link className="uppercase text-sm md:text-base flex" href="/courses">
+          <span> Enroll Now</span>
+          <ArrowUpRight size={10} />
         </Link>
       </Button>
     </div>

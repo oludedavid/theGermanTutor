@@ -10,8 +10,6 @@ import { useParams } from "next/navigation";
 
 export default function CourseDetail() {
   const params = useParams<{ courseId: string }>();
-
-  // Ensure params.courseId exists
   if (!params?.courseId) {
     return notFound();
   }
