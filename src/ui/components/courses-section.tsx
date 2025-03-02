@@ -10,6 +10,12 @@ type CourseDataT = {
   price: number;
   imageUrl?: string;
   duration: string;
+  whatYouWillLearn?: string[];
+  schedule?: {
+    daysOfWeek: string[];
+    time: string;
+    coursePeriod: string[];
+  };
 };
 export const courseData: CourseDataT[] = [
   {
@@ -21,6 +27,16 @@ export const courseData: CourseDataT[] = [
     price: 299,
     imageUrl: "/course1.png",
     duration: "8 weeks",
+    whatYouWillLearn: [
+      "Basic German vocabulary",
+      "Simple grammar rules",
+      "Everyday conversation skills",
+    ],
+    schedule: {
+      daysOfWeek: ["Monday", "Wednesday", "Friday"],
+      time: "6:00 PM - 7:30 PM",
+      coursePeriod: ["Jan 10 - Mar 4", "Mar 14 - May 6"],
+    },
   },
   {
     id: 2,
@@ -31,6 +47,11 @@ export const courseData: CourseDataT[] = [
     price: 349,
     imageUrl: "/course2.png",
     duration: "10 weeks",
+    schedule: {
+      daysOfWeek: ["Tuesday", "Thursday"],
+      time: "6:00 PM - 7:30 PM",
+      coursePeriod: ["Jan 11 - Mar 17", "Mar 22 - May 26"],
+    },
   },
   {
     id: 3,
@@ -41,6 +62,16 @@ export const courseData: CourseDataT[] = [
     price: 399,
     imageUrl: "/course3.png",
     duration: "12 weeks",
+    whatYouWillLearn: [
+      "Intermediate German vocabulary",
+      "Complex grammar rules",
+      "Professional communication skills",
+    ],
+    schedule: {
+      daysOfWeek: ["Monday", "Wednesday", "Friday"],
+      time: "6:00 PM - 7:30 PM",
+      coursePeriod: ["Jan 10 - Mar 4", "Mar 14 - May 6"],
+    },
   },
   {
     id: 4,
@@ -52,6 +83,16 @@ export const courseData: CourseDataT[] = [
     price: 449,
     imageUrl: "/course4.png",
     duration: "12 weeks",
+    whatYouWillLearn: [
+      "Advanced German vocabulary",
+      "Business communication skills",
+      "Cultural understanding",
+    ],
+    schedule: {
+      daysOfWeek: ["Tuesday", "Thursday"],
+      time: "6:00 PM - 7:30 PM",
+      coursePeriod: ["Jan 11 - Mar 17", "Mar 22 - May 26"],
+    },
   },
   {
     id: 5,
@@ -62,6 +103,16 @@ export const courseData: CourseDataT[] = [
     price: 499,
     imageUrl: "/course5.png",
     duration: "14 weeks",
+    whatYouWillLearn: [
+      "Proficient German vocabulary",
+      "Advanced grammar rules",
+      "Critical thinking and analysis",
+    ],
+    schedule: {
+      daysOfWeek: ["Monday", "Wednesday", "Friday"],
+      time: "6:00 PM - 7:30 PM",
+      coursePeriod: ["Jan 10 - Mar 4", "Mar 14 - May 6"],
+    },
   },
   {
     id: 6,
@@ -72,6 +123,16 @@ export const courseData: CourseDataT[] = [
     price: 549,
     imageUrl: "/course6.png",
     duration: "8 weeks",
+    whatYouWillLearn: [
+      "TestDaF exam structure",
+      "Test-taking strategies",
+      "Practice tests and feedback",
+    ],
+    schedule: {
+      daysOfWeek: ["Saturday", "Sunday"],
+      time: "10:00 AM - 12:00 PM",
+      coursePeriod: ["Jan 15 - Mar 6", "Mar 12 - May 1  "],
+    },
   },
 ];
 
