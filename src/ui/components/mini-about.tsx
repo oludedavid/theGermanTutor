@@ -6,9 +6,7 @@ export default function MiniAbout() {
   return (
     <section className="w-full py-16 flex justify-center items-center bg-[#F2EFDD]">
       <div className="w-full max-w-6xl px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16">
-        {/* Image grid */}
         <div className="w-full md:w-1/2 grid grid-cols-3 gap-3 h-96">
-          {/* First image - tall vertical image */}
           <div className="col-span-1 row-span-2 rounded-lg overflow-hidden h-full">
             <Image
               src="/mini1.png"
@@ -19,7 +17,6 @@ export default function MiniAbout() {
             />
           </div>
 
-          {/* Second image - top right */}
           <div className="col-span-2 rounded-lg overflow-hidden h-full">
             <Image
               src="/mini2.png"
@@ -29,8 +26,6 @@ export default function MiniAbout() {
               className="w-full h-full object-cover"
             />
           </div>
-
-          {/* Third image - bottom right, same height as second */}
           <div className="col-span-2 rounded-lg overflow-hidden h-full">
             <Image
               src="/mini3.png"
@@ -42,7 +37,6 @@ export default function MiniAbout() {
           </div>
         </div>
 
-        {/* Content */}
         <div className="w-full md:w-1/2 space-y-2">
           <h3 className="text-2xl font-bold text-[#0F0F0F]">
             Empowering You to Achieve German Fluency
