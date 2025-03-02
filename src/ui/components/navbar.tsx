@@ -130,7 +130,7 @@ export default function Navbar() {
                   style={{
                     fontFamily: "'Fustat', sans-serif",
                   }}
-                  className="bg-[#910F3F] hover:bg-[#7a0c34] uppercase text-white w-full flex justify-center items-center py-6 transition-colors duration-200"
+                  className="bg-[#910F3F] hover:bg-[#7a0c34] uppercase text-white w-full flex justify-center items-center py-6 px-4 transition-colors duration-200"
                   variant="default"
                 >
                   <Link
