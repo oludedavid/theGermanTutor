@@ -1,33 +1,26 @@
+"use client";
 import { notFound } from "next/navigation";
 import PageHeader from "@/ui/components/page-header";
-import { courseData } from "@/ui/components/courses-section";
+import { courseData } from "@/data/courses";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ShoppingBasket, Calendar, Clock } from "lucide-react";
 import ReadyToStart from "@/ui/components/ready-to-start";
+import { useParams } from "next/navigation";
 
-export default async function CourseDetail({
-  params,
-}: {
-  params: { courseId: string };
-}) {
-  const courseId = params.courseId;
-  const course = courseData.find((c) => c.id.toString() === courseId);
-  if (!course) {
-    notFound();
+export default function CourseDetail() {
+  const params = useParams<{ courseId: string }>();
+
+  // Ensure params.courseId exists
+  if (!params?.courseId) {
+    return notFound();
   }
 
-  // Find related courses (same level or adjacent levels)
-  const relatedCourses = courseData
-    .filter(
-      (c) =>
-        c.id !== course.id &&
-        (c.level === course.level ||
-          (course.level.includes("-")
-            ? c.level.includes(course.level.split("-")[0])
-            : false))
-    )
-    .slice(0, 3);
+  const course = courseData?.find((c) => c.id.toString() === params.courseId);
+
+  if (!course) {
+    return notFound();
+  }
 
   return (
     <div>
@@ -138,50 +131,6 @@ export default async function CourseDetail({
               </div>
             </div>
           </div>
-
-          {/* Related courses */}
-          {relatedCourses.length > 0 && (
-            <div className="p-6 mt-4 border-t border-[#BBB8A2]">
-              <h3 className="text-[#0F0F0F] text-xl md:text-2xl font-extrabold mb-6">
-                Related Courses
-              </h3>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {relatedCourses.map((relatedCourse) => (
-                  <div
-                    key={relatedCourse.id}
-                    className="border border-[#BBB8A2] rounded-lg p-4 flex flex-col gap-3 hover:shadow-md transition-shadow"
-                  >
-                    <Image
-                      src={relatedCourse.imageUrl || "/course1.png"}
-                      alt={relatedCourse.title}
-                      width={200}
-                      height={120}
-                      className="w-full h-36 object-cover rounded-md"
-                    />
-                    <h4 className="font-bold text-lg">{relatedCourse.title}</h4>
-                    <p className="text-[#525252] text-sm line-clamp-2">
-                      {relatedCourse.description}
-                    </p>
-                    <div className="flex justify-between mt-auto pt-3">
-                      <span className="text-[#910F3F] font-bold">
-                        €{relatedCourse.price}
-                      </span>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="border-[#910F3F] text-[#910F3F] hover:bg-[#910F3F] hover:text-white"
-                        onClick={() =>
-                          (window.location.href = `/courses/${relatedCourse.id}`)
-                        }
-                      >
-                        View Course
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
       <ReadyToStart />

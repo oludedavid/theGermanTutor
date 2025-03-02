@@ -1,5 +1,5 @@
 "use client";
-import { courseData } from "./courses-section";
+import { courseData } from "@/data/courses";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
