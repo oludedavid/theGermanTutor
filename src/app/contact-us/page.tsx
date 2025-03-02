@@ -1,6 +1,4 @@
-// ContactUs.tsx
 "use client";
-
 import PageHeader from "@/ui/components/page-header";
 import { PhoneCallIcon, Mail } from "lucide-react";
 import ReadyToStart from "@/ui/components/ready-to-start";
