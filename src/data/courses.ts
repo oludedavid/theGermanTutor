@@ -2,7 +2,7 @@ import { CourseDataT } from "@/types";
 
 export const courseData: CourseDataT[] = [
   {
-    id: 1,
+    id: "1",
     title: "A1 – Beginner Level (Grundstufe 1)",
     description:
       "Designed for absolute beginners, this course introduces fundamental German vocabulary, grammar, and essential communication skills for everyday situations.",
@@ -22,7 +22,7 @@ export const courseData: CourseDataT[] = [
     },
   },
   {
-    id: 2,
+    id: "2",
     title: "A2 – Elementary Level (Grundstufe 2)",
     description:
       "Expand your basic knowledge and gain confidence in speaking, writing, and understanding German in everyday contexts.",
@@ -43,7 +43,7 @@ export const courseData: CourseDataT[] = [
     },
   },
   {
-    id: 3,
+    id: "3",
     title: "B1 - Intermediate Level (Mittelstufe 1)",
     description:
       "Develop independent communication skills for work, travel, and everyday life with a stronger grasp of German grammar and vocabulary.",
@@ -64,7 +64,7 @@ export const courseData: CourseDataT[] = [
     },
   },
   {
-    id: 4,
+    id: "4",
     title:
       "B2 – Upper Intermediate Business German (Mittelstufe 2: Berufssprache)",
     description:
@@ -86,7 +86,7 @@ export const courseData: CourseDataT[] = [
     },
   },
   {
-    id: 5,
+    id: "5",
     title: "C1 – Advanced Level (Fortgeschrittene: Sprachliche Perfektion)",
     description:
       "Achieve near-native proficiency in German for academic, business, and everyday professional interactions.",
@@ -107,7 +107,7 @@ export const courseData: CourseDataT[] = [
     },
   },
   {
-    id: 6,
+    id: "6",
     title: "TestDaF Preparation",
     description:
       "Intensive training for the TestDaF exam, focusing on test structure, strategies, and practice to achieve high scores.",
