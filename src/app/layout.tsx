@@ -15,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`grid grid-cols-1 gap-4 min-w-screen antialiased`}>
+      <body
+        className={`grid grid-cols-1 gap-4 min-w-screen antialiased`}
+        suppressHydrationWarning
+      >
         <>
           <Navbar />
           <main>{children}</main>
