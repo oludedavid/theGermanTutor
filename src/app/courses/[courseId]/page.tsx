@@ -7,9 +7,13 @@ import { Button } from "@/components/ui/button";
 import { ShoppingBasket, Calendar, Clock } from "lucide-react";
 import ReadyToStart from "@/ui/components/ready-to-start";
 import { useParams } from "next/navigation";
+import { useCartStore } from "@/store/cart-store";
+import { CartItemT } from "@/types";
 
 export default function CourseDetail() {
   const params = useParams<{ courseId: string }>();
+  const { addCartItem } = useCartStore((state) => state);
+
   if (!params?.courseId) {
     return notFound();
   }
@@ -20,6 +24,18 @@ export default function CourseDetail() {
     return notFound();
   }
 
+  function addItemToCart() {
+    if (!course) {
+      console.error("Cannot add to cart: Course not found");
+      return;
+    }
+    const cartItem: CartItemT = {
+      course: course,
+      quantity: 1,
+    };
+
+    addCartItem(cartItem);
+  }
   return (
     <div>
       <PageHeader />
@@ -81,6 +97,7 @@ export default function CourseDetail() {
                 <Button
                   variant={"default"}
                   className="uppercase w-1/2 flex items-center justify-center gap-2 bg-[#FFFFF7] text-[#910F3F] hover:bg-[#F2EFDD] py-6"
+                  onClick={addItemToCart}
                 >
                   <ShoppingBasket />
                   <span>Add to cart</span>

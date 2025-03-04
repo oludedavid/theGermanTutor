@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import Logo from "./logo";
+import { useCartStore } from "@/store/cart-store";
 
 import {
   Sheet,
@@ -19,7 +20,7 @@ export default function Navbar() {
   function isActive(url: string) {
     return pathName === url;
   }
-
+  const { getTotalQuantityOfItemsInCart } = useCartStore((state) => state);
   return (
     <nav
       className={`flex justify-between md:justify-between border-b-[0.5px] border-b-[#] lg:border-none lg:justify-around items-center p-2`}
@@ -51,7 +52,7 @@ export default function Navbar() {
         >
           <Link className="relative text-sm" href="/cart">
             <small className="absolute -top-2 -right-1 font-bold text-xs text-red-400">
-              1
+              {getTotalQuantityOfItemsInCart()}
             </small>
             <ShoppingBasket size={25} />
           </Link>

@@ -1,8 +1,9 @@
 "use client";
-
+import { isEqual } from "lodash-es";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useEffect, useRef } from "react";
 
 import {
   Form,
@@ -13,6 +14,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { DeliveryInfoT } from "@/types";
+
+type DeliveryInfoProps = {
+  className?: string;
+  deliveryInfo: DeliveryInfoT;
+  onChange: (data: DeliveryInfoT) => void;
+};
 
 const formSchema = z.object({
   fullname: z
@@ -65,39 +73,34 @@ const formSchema = z.object({
     .max(10, "Postcode cannot exceed 10 characters"),
 });
 
-export default function DeliveryInfo({ className }: { className?: string }) {
+export default function DeliveryInfo({
+  className,
+  deliveryInfo,
+  onChange,
+}: DeliveryInfoProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      fullname: "",
-      phoneNumber: "",
-      email: "",
-      streetAddress: "",
-      streetAddress2: "",
-      city: "",
-      country: "",
-      stateOrProvinceOrRegion: "",
-      postcode: "",
-    },
+    defaultValues: deliveryInfo,
   });
+  const watchFields = form.watch();
+  const prevValuesRef = useRef<DeliveryInfoT>(deliveryInfo);
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  useEffect(() => {
+    if (!isEqual(watchFields, prevValuesRef.current)) {
+      prevValuesRef.current = watchFields;
+      onChange(watchFields);
+    }
+  }, [watchFields, onChange]);
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className={`space-y-4 sm:space-y-6 ${className}`}
-      >
+      <form className={`space-y-4 sm:space-y-6 ${className}`}>
         <FormLabel className="border-b block pb-2">
           <h3 className="text-[#0F0F0F] text-lg sm:text-xl md:text-2xl font-bold capitalize">
             Delivery Info
           </h3>
         </FormLabel>
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-12">
-          {/* Full Name */}
           <FormField
             control={form.control}
             name="fullname"
@@ -118,7 +121,6 @@ export default function DeliveryInfo({ className }: { className?: string }) {
             )}
           />
 
-          {/* Phone Number */}
           <FormField
             control={form.control}
             name="phoneNumber"
@@ -141,7 +143,6 @@ export default function DeliveryInfo({ className }: { className?: string }) {
           />
         </div>
 
-        {/* Email */}
         <FormField
           control={form.control}
           name="email"
@@ -161,7 +162,6 @@ export default function DeliveryInfo({ className }: { className?: string }) {
           )}
         />
 
-        {/* Street Address */}
         <FormField
           control={form.control}
           name="streetAddress"

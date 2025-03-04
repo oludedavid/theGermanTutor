@@ -1,6 +1,8 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { isEqual } from "lodash-es";
+import { useEffect, useRef } from "react";
 import { z } from "zod";
 import {
   Form,
@@ -12,28 +14,46 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Image from "next/image";
+import { PaymentMethodT } from "@/types";
+
+type PaymentMethodProps = {
+  className?: string;
+  paymentMethod: PaymentMethodT;
+  onChange: (data: PaymentMethodT) => void;
+};
 
 const FormSchema = z.object({
-  type: z.enum(["Paypal", "Paystack", "Flutterwave"], {
+  paymentMethod: z.enum(["paypal", "paystack", "flutterwave"], {
     required_error: "Please select a payment method",
   }),
 });
 
-export default function PaymentMethod({ className }: { className?: string }) {
+export default function PaymentMethod({
+  className,
+  onChange,
+  paymentMethod,
+}: PaymentMethodProps) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
-  }
+  const watchFields = form.watch();
+
+  const prevValuesRef = useRef<PaymentMethodT>(paymentMethod);
+
+  useEffect(() => {
+    if (!isEqual(watchFields, prevValuesRef.current)) {
+      prevValuesRef.current = watchFields;
+      onChange({ paymentMethod: watchFields.paymentMethod });
+    }
+  }, [watchFields, onChange]);
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={`${className}`}>
+      <form className={`${className}`}>
         <FormField
           control={form.control}
-          name="type"
+          name="paymentMethod"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="border-b block pb-2 mb-4">
@@ -51,7 +71,7 @@ export default function PaymentMethod({ className }: { className?: string }) {
                     <FormControl>
                       <RadioGroupItem
                         className="border-[#910F3F]"
-                        value="Paypal"
+                        value="paypal"
                       />
                     </FormControl>
                     <div className="w-full h-10 flex justify-between border rounded-sm px-2 sm:px-3 py-2">
@@ -71,7 +91,7 @@ export default function PaymentMethod({ className }: { className?: string }) {
                     <FormControl>
                       <RadioGroupItem
                         className="border-[#910F3F]"
-                        value="Paystack"
+                        value="paystack"
                       />
                     </FormControl>
                     <div className="w-full h-10 flex justify-between border rounded-sm px-2 sm:px-3 py-2">
@@ -91,7 +111,7 @@ export default function PaymentMethod({ className }: { className?: string }) {
                     <FormControl>
                       <RadioGroupItem
                         className="border-[#910F3F]"
-                        value="Flutterwave"
+                        value="flutterwave"
                       />
                     </FormControl>
                     <div className="w-full h-10 flex justify-between border rounded-sm px-2 sm:px-3 py-2">
