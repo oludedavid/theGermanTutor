@@ -5,6 +5,13 @@ import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import Logo from "./logo";
 import { useCartStore } from "@/store/cart-store";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 
 import {
   Sheet,
@@ -70,6 +77,15 @@ export default function Navbar() {
             </Link>
           </Button>
         </li>
+        <li className="flex gap-5">
+          <SignedOut>
+            <SignInButton />
+            <SignUpButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </li>
       </ul>
       <div className="flex items-center">
         <span
@@ -110,7 +126,7 @@ export default function Navbar() {
                       ? "text-[#910F3F] font-bold"
                       : "text-[#0F0F0F]"
                   } 
-                    text-lg py-2 px-4 w-full text-center hover:bg-[#f8f0f3] rounded-md transition-colors duration-200`}
+      text-lg py-2 px-4 w-full text-center hover:bg-[#f8f0f3] rounded-md transition-colors duration-200`}
                 >
                   Home
                 </Link>
@@ -121,7 +137,7 @@ export default function Navbar() {
                       ? "text-[#910F3F] font-bold"
                       : "text-[#0F0F0F]"
                   } 
-                    text-lg py-2 px-4 w-full text-center hover:bg-[#f8f0f3] rounded-md transition-colors duration-200`}
+      text-lg py-2 px-4 w-full text-center hover:bg-[#f8f0f3] rounded-md transition-colors duration-200`}
                 >
                   Courses
                 </Link>
@@ -132,7 +148,7 @@ export default function Navbar() {
                       ? "text-[#910F3F] font-bold"
                       : "text-[#0F0F0F]"
                   } 
-                    relative text-lg py-2 px-4 w-full text-center hover:bg-[#f8f0f3] rounded-md transition-colors duration-200 flex items-center justify-center`}
+      relative text-lg py-2 px-4 w-full text-center hover:bg-[#f8f0f3] rounded-md transition-colors duration-200 flex items-center justify-center`}
                 >
                   <span className="mr-2">Cart</span>
                   <ShoppingBasket size={22} />
@@ -140,6 +156,27 @@ export default function Navbar() {
                     {getTotalQuantityOfItemsInCart()}
                   </small>
                 </Link>
+                <div className="w-full flex flex-col gap-3 items-center">
+                  <SignedOut>
+                    <Button
+                      className="w-3/4 bg-[#910F3F] hover:bg-[#7a0c34]"
+                      variant="default"
+                    >
+                      <SignInButton />
+                    </Button>
+                    <Button
+                      className="w-3/4 bg-white text-[#910F3F] border border-[#910F3F] hover:bg-[#f8f0f3]"
+                      variant="outline"
+                    >
+                      <SignUpButton />
+                    </Button>
+                  </SignedOut>
+                  <SignedIn>
+                    <div className="flex items-center justify-center w-full">
+                      <UserButton />
+                    </div>
+                  </SignedIn>
+                </div>
 
                 <div className="pt-4 w-full">
                   <Button
