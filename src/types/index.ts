@@ -3,9 +3,9 @@ export type MouseEvent = React.MouseEvent<HTMLButtonElement>;
 export type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 export type User = {
-  fullName: string;
-  email: string;
-  password: string;
+  userId: string | null | undefined;
+  fullName: string | null | undefined;
+  email: string | null | undefined;
 };
 export type CourseDataT = {
   id: string;
@@ -41,9 +41,7 @@ export type PaymentMethodT = {
   paymentMethod: "paypal" | "flutterwave" | "paystack";
 };
 
-export type AcceptConditionT = {
-  acceptedCondition: boolean;
-};
+export type AcceptConditionT = boolean;
 
 export type CartItemT = {
   course: CourseDataT;
@@ -51,17 +49,14 @@ export type CartItemT = {
 };
 
 export type CartT = {
-  ownerId: string;
+  owner: User;
   ownerItems: CartItemT[];
-};
-
-export type CartDataT = CartT & {
   deliveryInfo: DeliveryInfoT;
   paymentMethod: PaymentMethodT;
   acceptCondition: AcceptConditionT;
 };
 
-export type OrderT = CartDataT & {
+export type OrderT = CartT & {
   totalPrice: number;
   createdAt?: Date;
   orderId?: string;

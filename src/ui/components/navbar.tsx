@@ -79,8 +79,12 @@ export default function Navbar() {
         </li>
         <li className="flex gap-5">
           <SignedOut>
-            <SignInButton />
-            <SignUpButton />
+            <SignInButton>
+              <Button variant={"outline"}>Login into your account</Button>
+            </SignInButton>
+            <SignUpButton>
+              <Button variant={"ghost"}>Signup today!</Button>
+            </SignUpButton>
           </SignedOut>
           <SignedIn>
             <UserButton />

@@ -2,19 +2,24 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { CartItemT, ChangeEvent } from "@/types";
+import { CartItemT, ChangeEvent, AcceptConditionT } from "@/types";
 import { Input } from "@/components/ui/input";
 import { useCartStore } from "@/store/cart-store";
 import { useEffect, useState } from "react";
-
 import CartLoader from "./cart-loader";
 
 export default function CartItems({
+  onClick,
   className,
   cartItems,
+  acceptCondition,
+  setAcceptCondition,
 }: {
   className?: string;
   cartItems: CartItemT[];
+  acceptCondition: AcceptConditionT;
+  setAcceptCondition: (condition: AcceptConditionT) => void;
+  onClick: (acceptCondition: boolean) => void;
 }) {
   const {
     setCartItemQuantity,
@@ -22,9 +27,8 @@ export default function CartItems({
     getTotalPrice,
     getTotalQuantityOfItemsInCart,
   } = useCartStore((state) => state);
-
-  const [termsAccepted, setTermsAccepted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     if (cartItems.length > 0 || isLoading) {
       setIsLoading(false);
@@ -98,9 +102,10 @@ export default function CartItems({
             {/* Checkout */}
             <div className="w-full py-4 sm:py-6">
               <Button
+                onClick={() => onClick(acceptCondition)}
                 variant={"default"}
                 className="w-full uppercase bg-[#910F3F] py-3 sm:py-4 text-sm sm:text-base"
-                disabled={!termsAccepted || cartItems.length === 0}
+                disabled={!acceptCondition || cartItems.length === 0}
               >
                 Buy Now
               </Button>
@@ -111,9 +116,9 @@ export default function CartItems({
               <Checkbox
                 id="terms"
                 className="border-[#910F3F]"
-                checked={termsAccepted}
+                checked={acceptCondition}
                 onCheckedChange={(checked) =>
-                  setTermsAccepted(checked as boolean)
+                  setAcceptCondition(checked as boolean)
                 }
               />
               <Label

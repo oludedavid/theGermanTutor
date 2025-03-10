@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "@/ui/components/navbar";
 import Footer from "@/ui/components/footer";
 import { ClerkProvider } from "@clerk/nextjs";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,17 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      localization={{
-        signIn: {
-          start: {
-            title: "Login to your account",
-            subtitle: "to continue to the platform",
-            actionText: "Login",
-          },
-        },
-      }}
-    >
+    <ClerkProvider>
       <html lang="en">
         <body
           className={`grid grid-cols-1 gap-4 min-w-screen antialiased`}
