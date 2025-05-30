@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Navbar from "@/ui/components/navbar";
 import Footer from "@/ui/components/footer";
+import { Toaster } from "@/components/ui/sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 
 import "./globals.css";
@@ -25,6 +26,7 @@ export default function RootLayout({
           <>
             <Navbar />
             <main>{children}</main>
+            <Toaster />
             <Footer />
           </>
         </body>

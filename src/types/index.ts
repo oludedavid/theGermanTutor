@@ -49,6 +49,7 @@ export type CartItemT = {
 };
 
 export type CartT = {
+  cartId: string;
   owner: User;
   ownerItems: CartItemT[];
   deliveryInfo: DeliveryInfoT;

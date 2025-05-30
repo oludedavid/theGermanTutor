@@ -7,10 +7,13 @@ import CartItems from "@/ui/components/cart-items";
 import { DeliveryInfoT, PaymentMethodT, AcceptConditionT } from "@/types";
 import { useUserStore } from "@/store/user-store";
 import { useCartStore } from "@/store/cart-store";
+import { usePaystack } from "@/hooks/usePaystack";
+import { toast } from "sonner";
 
 export default function Cart() {
-  const { cartItems, setCart } = useCartStore((state) => state);
+  const { cartItems, setCart, getCart } = useCartStore((state) => state);
   const { owner } = useUserStore((state) => state);
+  const { triggerPayment, isProcessing } = usePaystack();
   const [deliveryInfo, setDeliveryInfo] = useState<DeliveryInfoT>({
     fullname: "",
     phoneNumber: "",
@@ -23,29 +26,60 @@ export default function Cart() {
     postcode: "",
   });
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethodT>({
-    paymentMethod: "paypal",
+    paymentMethod: "paystack",
   });
   const [acceptCondition, setAcceptCondition] =
     useState<AcceptConditionT>(false);
 
+  // Function to generate a random string ID for the cart
+  const generateCartId = (): string => {
+    const timestamp = Date.now().toString(36); // Convert timestamp to base36
+    const randomStr = Math.random().toString(36).substring(2, 8); // Random 6-char string
+    return `${timestamp}-${randomStr}`; // Combine for uniqueness
+  };
+
   function onBuyNow(acceptCondition: boolean) {
-    if (owner) {
-      setCart({
-        owner: {
-          userId: owner.userId,
-          fullName: owner.fullName,
-          email: owner.email,
-        },
-        ownerItems: cartItems,
-        deliveryInfo: deliveryInfo,
-        paymentMethod: paymentMethod,
-        acceptCondition: acceptCondition,
-      });
-    } else {
-      alert("Please login or register to order");
-      window.location.href = "/";
+    if (!owner) {
+      toast.error("Please login or register to order");
+      window.location.href = "/sign-in";
+      return;
     }
+
+    if (!acceptCondition) {
+      toast.error("Please accept the terms and conditions");
+      return;
+    }
+
+    if (!cartItems.length) {
+      toast.error("Your cart is empty");
+      return;
+    }
+
+    // Save cart details
+    setCart({
+      cartId: generateCartId(),
+      owner: {
+        userId: owner.userId,
+        fullName: owner.fullName,
+        email: owner.email,
+      },
+      ownerItems: cartItems,
+      deliveryInfo: deliveryInfo,
+      paymentMethod: paymentMethod,
+      acceptCondition: acceptCondition,
+    });
+
+    // Trigger Paystack payment
+    triggerPayment();
   }
+
+  console.log("cartItems", getCart());
+  console.log("cart", cartItems);
+  console.log("deliveryInfo", deliveryInfo);
+  console.log("paymentMethod", paymentMethod);
+  console.log("acceptCondition", acceptCondition);
+  console.log("owner", owner);
+  console.log("isProcessing", isProcessing);
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -68,6 +102,7 @@ export default function Cart() {
           acceptCondition={acceptCondition}
           setAcceptCondition={setAcceptCondition}
           cartItems={cartItems}
+          isProcessing={isProcessing}
           className="w-full lg:w-2/5 shadow-md rounded-lg p-4 h-fit sticky top-6"
         />
       </div>
