@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+
 export default function ReadyToStart() {
   return (
     <div className="w-full flex flex-col items-center justify-center py-8 md:py-12 lg:py-16 bg-[#B01F55] gap-3 md:gap-5 px-4 md:px-8">
@@ -16,8 +17,12 @@ export default function ReadyToStart() {
         variant={`default`}
         className="bg-[#F2EFDD] text-black hover:bg-[#e5e2d0] transition-colors mt-2 md:mt-3"
       >
-        <Link className="uppercase text-sm md:text-base flex" href="/courses">
-          <span> Enroll Now</span>
+        <Link
+          className="uppercase text-sm md:text-base flex"
+          target="_blank"
+          href="https://wa.me/4915210408579?text=Hello%20My%20Name%20is%20I%E2%80%99m%20interested%20in%20booking%20a%20German%20language%20course"
+        >
+          <span> Contact Us</span>
           <ArrowUpRight size={10} />
         </Link>
       </Button>

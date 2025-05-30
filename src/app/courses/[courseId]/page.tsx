@@ -94,14 +94,6 @@ export default function CourseDetail() {
                 <p className="text-white text-sm mb-2">
                   Duration: {course.duration}
                 </p>
-                <Button
-                  variant={"default"}
-                  className="uppercase w-1/2 flex items-center justify-center gap-2 bg-[#FFFFF7] text-[#910F3F] hover:bg-[#F2EFDD] py-6"
-                  onClick={addItemToCart}
-                >
-                  <ShoppingBasket />
-                  <span>Add to cart</span>
-                </Button>
               </div>
 
               {/* Schedule info */}

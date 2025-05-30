@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Navbar from "@/ui/components/navbar";
 import Footer from "@/ui/components/footer";
-import { ClerkProvider } from "@clerk/nextjs";
 
 import "./globals.css";
 
@@ -16,19 +15,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body
-          className={`grid grid-cols-1 gap-4 min-w-screen antialiased`}
-          suppressHydrationWarning
-        >
-          <>
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
-          </>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body
+        className={`grid grid-cols-1 gap-4 min-w-screen antialiased`}
+        suppressHydrationWarning
+      >
+        <>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </>
+      </body>
+    </html>
   );
 }

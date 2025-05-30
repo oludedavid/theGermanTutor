@@ -5,13 +5,6 @@ import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import Logo from "./logo";
 import { useCartStore } from "@/store/cart-store";
-import {
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
 
 import {
   Sheet,
@@ -52,18 +45,6 @@ export default function Navbar() {
             Courses
           </Link>
         </li>
-        <li
-          className={`${
-            isActive("/cart") ? "text-[#910F3F]" : "text-[#0F0F0F]"
-          } hover:text-[#910F3F] transition-colors duration-200`}
-        >
-          <Link className="relative text-sm" href="/cart">
-            <small className="absolute -top-2 -right-1 font-bold text-xs text-red-400">
-              {getTotalQuantityOfItemsInCart()}
-            </small>
-            <ShoppingBasket size={25} />
-          </Link>
-        </li>
         <li>
           <Button
             style={{
@@ -72,23 +53,14 @@ export default function Navbar() {
             className="bg-[#910F3F] hover:bg-[#7a0c34] uppercase text-white w-36 flex justify-center items-center transition-colors duration-200"
             variant="default"
           >
-            <Link className="text-[16px] w-full" href="/contact-us">
+            <Link
+              className="text-[16px] w-full"
+              target="_blank"
+              href="https://wa.me/4915210408579?text=Hello%20My%20Name%20is%20I%E2%80%99m%20interested%20in%20booking%20a%20German%20language%20course"
+            >
               Contact Us
             </Link>
           </Button>
-        </li>
-        <li className="flex gap-5">
-          <SignedOut>
-            <SignInButton>
-              <Button variant={"outline"}>Login into your account</Button>
-            </SignInButton>
-            <SignUpButton>
-              <Button variant={"ghost"}>Signup today!</Button>
-            </SignUpButton>
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
         </li>
       </ul>
       <div className="flex items-center">
@@ -145,42 +117,6 @@ export default function Navbar() {
                 >
                   Courses
                 </Link>
-                <Link
-                  href="/cart"
-                  className={`${
-                    isActive("/cart")
-                      ? "text-[#910F3F] font-bold"
-                      : "text-[#0F0F0F]"
-                  } 
-      relative text-lg py-2 px-4 w-full text-center hover:bg-[#f8f0f3] rounded-md transition-colors duration-200 flex items-center justify-center`}
-                >
-                  <span className="mr-2">Cart</span>
-                  <ShoppingBasket size={22} />
-                  <small className="absolute top-0 right-1/3 font-bold text-xs bg-[#B01F55] text-white rounded-full w-5 h-5 flex items-center justify-center">
-                    {getTotalQuantityOfItemsInCart()}
-                  </small>
-                </Link>
-                <div className="w-full flex flex-col gap-3 items-center">
-                  <SignedOut>
-                    <Button
-                      className="w-3/4 bg-[#910F3F] hover:bg-[#7a0c34]"
-                      variant="default"
-                    >
-                      <SignInButton />
-                    </Button>
-                    <Button
-                      className="w-3/4 bg-white text-[#910F3F] border border-[#910F3F] hover:bg-[#f8f0f3]"
-                      variant="outline"
-                    >
-                      <SignUpButton />
-                    </Button>
-                  </SignedOut>
-                  <SignedIn>
-                    <div className="flex items-center justify-center w-full">
-                      <UserButton />
-                    </div>
-                  </SignedIn>
-                </div>
 
                 <div className="pt-4 w-full">
                   <Button
