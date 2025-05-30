@@ -3,17 +3,12 @@ import { notFound } from "next/navigation";
 import PageHeader from "@/ui/components/page-header";
 import { courseData } from "@/data/courses";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { ShoppingBasket, Calendar, Clock } from "lucide-react";
 import ReadyToStart from "@/ui/components/ready-to-start";
 import { useParams } from "next/navigation";
-import { useCartStore } from "@/store/cart-store";
-import { CartItemT } from "@/types";
+import { Calendar, Clock } from "lucide-react";
 
 export default function CourseDetail() {
   const params = useParams<{ courseId: string }>();
-  const { addCartItem } = useCartStore((state) => state);
-
   if (!params?.courseId) {
     return notFound();
   }
@@ -22,19 +17,6 @@ export default function CourseDetail() {
 
   if (!course) {
     return notFound();
-  }
-
-  function addItemToCart() {
-    if (!course) {
-      console.error("Cannot add to cart: Course not found");
-      return;
-    }
-    const cartItem: CartItemT = {
-      course: course,
-      quantity: 1,
-    };
-
-    addCartItem(cartItem);
   }
   return (
     <div>
