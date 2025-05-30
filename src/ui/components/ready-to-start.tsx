@@ -22,7 +22,7 @@ export default function ReadyToStart() {
           target="_blank"
           href="https://wa.me/4915210408579?text=Hello%20My%20Name%20is%20I%E2%80%99m%20interested%20in%20booking%20a%20German%20language%20course"
         >
-          <span> Contact Us</span>
+          <span> Contact Us via Whatsapp</span>
           <ArrowUpRight size={10} />
         </Link>
       </Button>

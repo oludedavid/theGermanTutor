@@ -1,11 +1,12 @@
 "use client";
-import { Menu, ShoppingBasket } from "lucide-react";
+import { Menu } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import Logo from "./logo";
-import { useCartStore } from "@/store/cart-store";
-
+import { SOCIAL_LINKS } from "@/socials/social";
 import {
   Sheet,
   SheetContent,
@@ -17,148 +18,185 @@ import {
 
 export default function Navbar() {
   const pathName = usePathname();
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
   function isActive(url: string) {
     return pathName === url;
   }
-  const { getTotalQuantityOfItemsInCart } = useCartStore((state) => state);
+
+  const handleLinkClick = () => {
+    setIsSheetOpen(false);
+  };
+
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/courses", label: "Courses" },
+  ];
+
   return (
-    <nav
-      className={`flex justify-between md:justify-between border-b-[0.5px] border-b-[#] lg:border-none lg:justify-around items-center p-2`}
-    >
-      <Logo width={120} height={70} />
-      <ul className="hidden lg:flex md:hidden justify-around items-center space-x-10">
-        <li
-          className={`${
-            isActive("/") ? "text-[#910F3F]" : "text-[#0F0F0F]"
-          } hover:text-[#910F3F] transition-colors duration-200`}
-        >
-          <Link className="text-sm" href="/">
-            Home
-          </Link>
-        </li>
-        <li
-          className={`${
-            isActive("/courses") ? "text-[#910F3F]" : "text-[#0F0F0F]"
-          } hover:text-[#910F3F] transition-colors duration-200`}
-        >
-          <Link className="text-sm" href="/courses">
-            Courses
-          </Link>
-        </li>
-        <li>
-          <Button
-            style={{
-              fontFamily: "'Fustat', sans-serif",
-            }}
-            className="bg-[#910F3F] hover:bg-[#7a0c34] uppercase text-white w-36 flex justify-center items-center transition-colors duration-200"
-            variant="default"
-          >
-            <Link
-              className="text-[16px] w-full"
-              target="_blank"
-              href="https://wa.me/4915210408579?text=Hello%20My%20Name%20is%20I%E2%80%99m%20interested%20in%20booking%20a%20German%20language%20course"
-            >
-              Contact Us
+    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16 lg:h-20">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Link href="/" className="block">
+              <Logo width={100} height={60} />
             </Link>
-          </Button>
-        </li>
-      </ul>
-      <div className="flex items-center">
-        <span
-          className={`relative lg:hidden flex flex-row mr-4 ${
-            isActive("/cart") ? "text-[#910F3F]" : "text-[#0F0F0F]"
-          } hover:text-[#910F3F] transition-colors duration-200`}
-        >
-          <Link className="relative text-sm" href="/cart">
-            <small className="absolute -top-2 -right-1 font-bold text-xs text-red-400">
-              {getTotalQuantityOfItemsInCart()}
-            </small>
-            <ShoppingBasket size={25} />
-          </Link>
-        </span>
-        <section className="block lg:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="p-1">
-                <Menu size={24} className="text-[#910F3F]" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent className="border-l-[#B01F55] bg-white">
-              <SheetHeader className="border-b pb-4 mb-6">
-                <div className="flex justify-between items-center">
-                  <SheetTitle className="text-center text-[#910F3F]">
-                    <figure className="flex justify-center items-center">
-                      <Logo width={70} height={70} />
-                    </figure>
-                  </SheetTitle>
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-8">
+            <ul className="flex items-center space-x-8">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={`text-sm font-medium transition-colors duration-200 hover:text-[#B01F55] ${
+                      isActive(link.href)
+                        ? "text-[#910F3F] font-semibold"
+                        : "text-gray-700"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            {/* Contact Button */}
+            <Button
+              asChild
+              className="bg-[#910F3F] hover:bg-[#7a0c34] text-white px-6 py-2 font-medium transition-all duration-200 hover:shadow-lg"
+            >
+              <Link
+                href={SOCIAL_LINKS.WHATSAPP}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2"
+              >
+                Contact Us via Whatsapp
+              </Link>
+            </Button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden">
+            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+              <SheetTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="p-2 hover:bg-gray-100 transition-colors"
+                  aria-label="Open menu"
+                >
+                  <Menu size={24} className="text-[#910F3F]" />
+                </Button>
+              </SheetTrigger>
+
+              <SheetContent
+                side="right"
+                className="w-full sm:w-[400px] bg-white border-l border-gray-200"
+              >
+                <SheetHeader className="border-b border-gray-100 pb-6 mb-6">
+                  <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                  <div className="flex justify-center">
+                    <Logo width={80} height={60} />
+                  </div>
+                </SheetHeader>
+
+                {/* Mobile Navigation Links */}
+                <div className="flex flex-col space-y-1 mb-8">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={handleLinkClick}
+                      className={`text-lg py-3 px-4 rounded-lg transition-all duration-200 ${
+                        isActive(link.href)
+                          ? "text-[#910F3F] bg-[#f8f0f3] font-semibold"
+                          : "text-gray-700 hover:bg-gray-50 hover:text-[#910F3F]"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
                 </div>
-              </SheetHeader>
 
-              <div className="flex flex-col items-center space-y-6 py-6">
-                <Link
-                  href="/"
-                  className={`${
-                    isActive("/")
-                      ? "text-[#910F3F] font-bold"
-                      : "text-[#0F0F0F]"
-                  } 
-      text-lg py-2 px-4 w-full text-center hover:bg-[#f8f0f3] rounded-md transition-colors duration-200`}
-                >
-                  Home
-                </Link>
-                <Link
-                  href="/courses"
-                  className={`${
-                    isActive("/courses")
-                      ? "text-[#910F3F] font-bold"
-                      : "text-[#0F0F0F]"
-                  } 
-      text-lg py-2 px-4 w-full text-center hover:bg-[#f8f0f3] rounded-md transition-colors duration-200`}
-                >
-                  Courses
-                </Link>
-
-                <div className="pt-4 w-full">
+                {/* Mobile Contact Button */}
+                <div className="mb-8">
                   <Button
-                    style={{
-                      fontFamily: "'Fustat', sans-serif",
-                    }}
-                    className="bg-[#910F3F] hover:bg-[#7a0c34] uppercase text-white w-full flex justify-center items-center py-6 px-4 transition-colors duration-200"
-                    variant="default"
+                    asChild
+                    className="w-full bg-[#910F3F] hover:bg-[#7a0c34] text-white py-4 text-lg font-medium transition-colors duration-200"
                   >
                     <Link
-                      className="text-[16px] w-full text-center"
-                      href="/contact-us"
+                      href={SOCIAL_LINKS.WHATSAPP}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={handleLinkClick}
                     >
-                      Contact Us
+                      Contact Us on WhatsApp
                     </Link>
                   </Button>
                 </div>
-              </div>
 
-              <SheetFooter className="border-t mt-auto pt-4">
-                <div className="flex flex-col items-center w-full">
-                  <div className="flex space-x-4 mb-4">
-                    <div className="w-8 h-8 rounded-full bg-[#B01F55] flex items-center justify-center">
-                      <span className="text-white text-xs">FB</span>
+                {/* Mobile Footer */}
+                <SheetFooter className="border-t border-gray-100 pt-6 mt-auto">
+                  <div className="flex flex-col items-center w-full space-y-4">
+                    {/* Social Media Links */}
+                    <div className="flex items-center gap-3">
+                      {[
+                        {
+                          name: "facebook",
+                          label: "Facebook",
+                          url: SOCIAL_LINKS.FACEBOOK,
+                        },
+                        {
+                          name: "x",
+                          label: "TikTok",
+                          url: SOCIAL_LINKS.TIKTOK,
+                        },
+                        {
+                          name: "instagram",
+                          label: "Instagram",
+                          url: SOCIAL_LINKS.INSTAGRAM,
+                        },
+                        {
+                          name: "linkedIn",
+                          label: "LinkedIn",
+                          url: SOCIAL_LINKS.LINKEDIN,
+                        },
+                      ].map((social) => (
+                        <Link
+                          key={social.name}
+                          href={social.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={handleLinkClick}
+                          className="flex items-center justify-center bg-[#910F3F] p-2.5 rounded-lg hover:bg-[#B01F55] transition-all duration-200 group hover:scale-105"
+                          aria-label={`Follow us on ${social.label}`}
+                        >
+                          <Image
+                            src={`/${social.name}.png`}
+                            alt={`${social.label} icon`}
+                            width={18}
+                            height={18}
+                            className="group-hover:scale-110 transition-transform duration-200"
+                          />
+                        </Link>
+                      ))}
                     </div>
-                    <div className="w-8 h-8 rounded-full bg-[#B01F55] flex items-center justify-center">
-                      <span className="text-white text-xs">IG</span>
-                    </div>
-                    <div className="w-8 h-8 rounded-full bg-[#B01F55] flex items-center justify-center">
-                      <span className="text-white text-xs">TW</span>
+
+                    {/* Copyright */}
+                    <div className="text-center text-sm text-gray-500">
+                      <p>© {new Date().getFullYear()} The German Tutor</p>
+                      <p>All Rights Reserved</p>
                     </div>
                   </div>
-                  <small className="text-center text-[#525252]">
-                    Copyright © {new Date().getFullYear()} thegermantutor.
-                    <br />
-                    All Rights Reserved.
-                  </small>
-                </div>
-              </SheetFooter>
-            </SheetContent>
-          </Sheet>
-        </section>
+                </SheetFooter>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
       </div>
     </nav>
   );
