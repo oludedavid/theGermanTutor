@@ -7,7 +7,7 @@ export const courseData: CourseDataT[] = [
     description:
       "Designed for absolute beginners, this course introduces fundamental German vocabulary, grammar, and essential communication skills for everyday situations.",
     level: "A1",
-    price: 299,
+    price: 300,
     imageUrl: "/course1.png",
     duration: "8 weeks",
     whatYouWillLearn: [
@@ -27,7 +27,7 @@ export const courseData: CourseDataT[] = [
     description:
       "Expand your basic knowledge and gain confidence in speaking, writing, and understanding German in everyday contexts.",
     level: "A2",
-    price: 349,
+    price: 300,
     imageUrl: "/course2.png",
     duration: "10 weeks",
     whatYouWillLearn: [
@@ -48,7 +48,7 @@ export const courseData: CourseDataT[] = [
     description:
       "Develop independent communication skills for work, travel, and everyday life with a stronger grasp of German grammar and vocabulary.",
     level: "B1",
-    price: 399,
+    price: 350,
     imageUrl: "/course3.png",
     duration: "12 weeks",
     whatYouWillLearn: [
@@ -70,7 +70,7 @@ export const courseData: CourseDataT[] = [
     description:
       "Enhance your fluency and comprehension to engage in professional discussions, understand complex texts, and express opinions confidently.",
     level: "B2",
-    price: 449,
+    price: 350,
     imageUrl: "/course4.png",
     duration: "12 weeks",
     whatYouWillLearn: [
@@ -91,7 +91,7 @@ export const courseData: CourseDataT[] = [
     description:
       "Achieve near-native proficiency in German for academic, business, and everyday professional interactions.",
     level: "C1",
-    price: 499,
+    price: 400,
     imageUrl: "/course5.png",
     duration: "14 weeks",
     whatYouWillLearn: [
@@ -112,7 +112,7 @@ export const courseData: CourseDataT[] = [
     description:
       "Intensive training for the TestDaF exam, focusing on test structure, strategies, and practice to achieve high scores.",
     level: "B2-C1",
-    price: 549,
+    price: 400,
     imageUrl: "/course6.png",
     duration: "8 weeks",
     whatYouWillLearn: [
