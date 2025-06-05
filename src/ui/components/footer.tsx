@@ -39,30 +39,6 @@ export default function Footer() {
                   Courses
                 </Link>
               </li>
-              <li>
-                <Link
-                  className="text-sm text-gray-600 hover:text-[#B01F55] transition-colors duration-200"
-                  href="/about"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="text-sm text-gray-600 hover:text-[#B01F55] transition-colors duration-200"
-                  href="/contact-us"
-                >
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="text-sm text-gray-600 hover:text-[#B01F55] transition-colors duration-200"
-                  href="/blog"
-                >
-                  Blog
-                </Link>
-              </li>
             </ul>
           </div>
 
