@@ -70,15 +70,16 @@ export default function Footer() {
           <div className="space-y-6">
             <h3 className="text-lg font-bold text-gray-800">Our Courses</h3>
             <ul className="space-y-3">
-              {courseData.slice(0, 5).map((course) => (
+              {courseData.slice(0, 6).map((course) => (
                 <li key={course.id}>
                   <Link
                     className="text-sm text-gray-600 hover:text-[#B01F55] transition-colors duration-200 flex items-center justify-between group"
                     href={`/courses/${course.id}`}
                   >
                     <span className="truncate">
-                      {course.level} - {course.title.split("(")[0].trim()}
+                      {course.title.split("(")[0].trim()}
                     </span>
+
                     <span className="text-xs text-[#B01F55] font-medium ml-2 opacity-0 group-hover:opacity-100 transition-opacity">
                       €{course.price}
                     </span>
